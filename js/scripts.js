@@ -50,18 +50,30 @@ Order.prototype.cost = function () {
 };
 
 // -- Test --
-let pizza = new Pizza("small");
-pizza.addTopping("Pineapple");
-pizza.addTopping("Jalepeños");
-console.log(pizza.cost());
+// let pizza = new Pizza("small");
+// pizza.addTopping("Pineapple");
+// pizza.addTopping("Jalepeños");
+// console.log(pizza.cost());
+//
+// let order = new Order();
+// order.add(pizza);
+// console.log(order.cost());
+//
+// pizza = new Pizza("medium");
+// pizza.addTopping("Pepperoni");
+// console.log(pizza.cost());
+//
+// order.add(pizza);
+// console.log(order.cost());
 
-let order = new Order();
-order.add(pizza);
-console.log(order.cost());
+// -- User Interface --
+$(function (){
+  $("form#pizza").submit(function (event) {
+    event.preventDefault();
 
-pizza = new Pizza("medium");
-pizza.addTopping("Pepperoni");
-console.log(pizza.cost());
+    let inputSize = $("input:radio[name=size]:checked").val();
+    let pizza = new Pizza(inputSize);
+    console.log(pizza);
 
-order.add(pizza);
-console.log(order.cost());
+  });
+});
