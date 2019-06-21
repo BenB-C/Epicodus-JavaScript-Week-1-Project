@@ -10,8 +10,9 @@
 </head>
 <body>
   <h1>Pizza Builder</h1>
-  <form id="pizza">
-    <h2>Size</h2>
+  <button id="add-to-order" type="button" class="btn btn-success">ADD A PIZZA TO YOUR ORDER</button>
+  <form id="build-pizza">
+    <h3>CHOOSE YOUR SIZE</h3>
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="size" value="small" id="small">
       <label class="form-check-label" for="small">
@@ -30,16 +31,17 @@
         Large
       </label>
     </div>
-    <h2>Toppings</h2>
+    <h3>CHOOSE YOUR TOPPINGS</h3>
     <div id="toppings" class="form-group">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-success">ADD TO ORDER</button>
   </form>
   <div class="order">
-    <h1>Your Order</h1>
+    <H3>Your Order</H3>
+    <hr>
     <div id="order-items">
     </div>
-    <p>Order Total Cost: $<span id="cost"></span></p>
+    <p>Total: $<span id="cost">0</span></p>
     </div>
   </div>
 </body>

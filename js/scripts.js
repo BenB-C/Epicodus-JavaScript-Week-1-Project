@@ -1,4 +1,4 @@
-// -- Objects and Variables --
+// ---- Objects and Global Variables ----
 
 // list of toppings available
 let toppings = [
@@ -26,8 +26,7 @@ Pizza.prototype.addTopping = function (topping) {
 };
 
 Pizza.prototype.toppingsList = function () {
-
-  return this.toppings.toString().replace(",", ", ");
+  return this.toppings.toString().replace(/,/g, ", ");
 };
 
 Pizza.prototype.priceFor = {
@@ -54,10 +53,12 @@ Order.prototype.cost = function () {
   return this.pizzas.reduce((total, pizza) => total + pizza.cost(), 0);
 };
 
-// -- Test --
+// ---- Tests ----
 // let pizza = new Pizza("Small");
 // pizza.addTopping("Pineapple");
 // pizza.addTopping("Jalepeños");
+// pizza.addTopping("Pepperoni");
+// console.log(pizza.toppingsList());
 // console.log(pizza.cost());
 //
 // let order = new Order();
@@ -71,7 +72,7 @@ Order.prototype.cost = function () {
 // order.addItem(pizza);
 // console.log(order.cost());
 
-// -- User Interface --
+// ---- User Interface ----
 $(function (){
   // Add topping choices
   toppings.forEach( (topping, i) => {
@@ -84,9 +85,13 @@ $(function (){
   });
   // Initialize order
   let order = new Order();
+  $("button#add-to-order").click(function () {
+    $(this).hide();
+    $("form#build-pizza").show();
+  });
 
   // Form submit handler
-  $("form#pizza").submit(function (event) {
+  $("form#build-pizza").submit(function (event) {
     event.preventDefault();
     // get pizza size input
     let inputSize = $("input:radio[name=size]:checked").val();
@@ -97,11 +102,14 @@ $(function (){
     });
     // add pizza to order
     order.addItem(newPizza);
+    // hide and reset new pizza form
+    $("form#build-pizza").hide();
+    $("form#build-pizza")[0].reset();
     // display order and cost
-    console.log(htmlForPizza(newPizza));
     $("#order-items").append(htmlForPizza(newPizza));
     $("#cost").text(order.cost());
-    console.log(order);
+    // show add pizza button
+    $("button#add-to-order").show();
   });
 });
 
@@ -116,6 +124,7 @@ function htmlForPizza (pizza) {
         <p class="item-cost">$${pizza.cost()}</p>
       </div>
     </div>
+    <hr>
   `
   return htmlString;
 }
