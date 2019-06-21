@@ -14,13 +14,17 @@ form#build-pizza {
   display: none;
 }
 
+button#add-to-order {
+  margin-top: 15px;
+}
+
 #toppings {
   text-align: left;
   display: inline-block;
 }
 
 .order {
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 #order-items {
