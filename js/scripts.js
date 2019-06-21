@@ -73,24 +73,7 @@ Order.prototype.cost = function () {
 // console.log(order.cost());
 
 // ---- User Interface ----
-function htmlForPizza (pizza) {
-  let htmlString = `
-    <div class="order-item row">
-      <div class="col-sm-10">
-        <p class="item-description">${pizza.size} Pizza</p>
-        <p class="toppings">Toppings: ${pizza.toppingsList()}</p>
-      </div>
-      <div class="col-sm-2">
-        <p class="item-cost">$${pizza.cost()}</p>
-      </div>
-    </div>
-    <hr>
-  `
-  return htmlString;
-}
-
-// Document Ready
-$(function (){
+$(document).ready(function (){
   // Add topping choices
   toppings.forEach( (topping, i) => {
     $("#toppings").append(`
@@ -102,12 +85,14 @@ $(function (){
   });
   // Initialize order
   let order = new Order();
+
+  // Install add pizza to order button handler
   $("button#add-to-order").click(function () {
     $(this).hide();
     $("form#build-pizza").show();
   });
 
-  // Form submit handler
+  // Install build pizza form submit handler
   $("form#build-pizza").submit(function (event) {
     event.preventDefault();
     // get pizza size input
@@ -123,13 +108,37 @@ $(function (){
     $("form#build-pizza").hide();
     $("form#build-pizza")[0].reset();
     // display order and cost
-    $("#order-items").append(htmlForPizza(newPizza));
+    let pizzaDescription = newPizza.size;
+    let toppingsAdded = newPizza.toppings.length != 0;
+    if (toppingsAdded) {
+      pizzaDescription += " Pizza";
+    } else {
+      pizzaDescription += " Cheese Pizza";
+    }
+    let htmlString = `
+      <div class="order-item row">
+        <div class="col-sm-10">
+          <p class="item-description"><strong>${pizzaDescription}</strong></p>
+    `;
+    if (toppingsAdded) {
+      htmlString += `<p class="toppings"> Toppings: ${newPizza.toppingsList()}</p>`
+    }
+    htmlString += `
+        </div>
+        <div class="col-sm-2">
+          <p class="item-cost">$${newPizza.cost()}</p>
+        </div>
+      </div>
+      <hr>
+    `;
+    $("#order-items").append(htmlString);
     $("#cost").text(order.cost());
     // show add pizza button
     $("button#add-to-order").show();
+    $("button#submit-order").show();
   });
 
-  // Cancel add pizza to order button
+  // Install cancel add pizza to order button handler
   $("button#cancel").click(function () {
     console.log("cancel clicked");
     // hide and reset new pizza form
@@ -137,5 +146,14 @@ $(function (){
     $("form#build-pizza")[0].reset();
     // show add pizza button
     $("button#add-to-order").show();
+  });
+
+  // Install submit order button handler
+  $("button#submit-order").click(function () {
+    if (order.pizzas.length !== 0) {
+      $("#order-confirmation").show();
+      $("button#add-to-order").hide();
+      $("button#submit-order").hide();
+    }
   });
 });
