@@ -1,12 +1,19 @@
-# _Order Pizza_
+# Order Pizza
 
-#### _{Brief description of application}, {Date of current version}_
+#### Epicodus Intermediate JavaScript - Code Review 1, 2019.06.21
 
-#### By _**{List of contributors}**_
+#### By Ben Bennett-Cauchon
 
 ## Description
 
-_{This is a detailed description of your application. Its purpose and usage.  Give as much detail as needed to explain what the application does, and any other information you want users or other developers to have. }_
+A website for a pizza company where a user can choose one or more individual toppings (cheese, pepperoni, artichoke, anchovy, etc) and a size to order a pizza and see the final cost.
+
+## Specs
+
+| Behavior | Input | Output |
+| ------------- |:-------------:| -----:|
+| Allow the user to choose size for the pizza they'd like to order. | Click on radio button next to size | Pizza of that size is added to order and updated price is displayed |
+| Allow the user to choose a topping for the pizza they'd like to order. | Clicks on checkboxes next to list of toppings | Selected toppings are added to order and price is updated |
 
 ## Setup/Installation Requirements
 
