@@ -17,7 +17,7 @@ let toppings = [
 
 // Pizza class
 function Pizza (size) {
-  this.size = size, // "small", "medium", or "large"
+  this.size = size, // "Small", "Medium", or "Large"
   this.toppings = [] // toppings added to the pizza order
 };
 
@@ -25,10 +25,15 @@ Pizza.prototype.addTopping = function (topping) {
   return this.toppings.push(topping);
 };
 
+Pizza.prototype.toppingsList = function () {
+
+  return this.toppings.toString().replace(",", ", ");
+};
+
 Pizza.prototype.priceFor = {
-  small: 10,
-  medium: 15,
-  large: 20,
+  Small: 10,
+  Medium: 15,
+  Large: 20,
   toppings: 1
 };
 
@@ -41,7 +46,7 @@ function Order () {
   this.pizzas = [];
 };
 
-Order.prototype.add = function (pizza) {
+Order.prototype.addItem = function (pizza) {
   return this.pizzas.push(pizza);
 };
 
@@ -50,20 +55,20 @@ Order.prototype.cost = function () {
 };
 
 // -- Test --
-// let pizza = new Pizza("small");
+// let pizza = new Pizza("Small");
 // pizza.addTopping("Pineapple");
 // pizza.addTopping("Jalepeños");
 // console.log(pizza.cost());
 //
 // let order = new Order();
-// order.add(pizza);
+// order.addItem(pizza);
 // console.log(order.cost());
 //
-// pizza = new Pizza("medium");
+// pizza = new Pizza("Medium");
 // pizza.addTopping("Pepperoni");
 // console.log(pizza.cost());
 //
-// order.add(pizza);
+// order.addItem(pizza);
 // console.log(order.cost());
 
 // -- User Interface --
@@ -77,17 +82,40 @@ $(function (){
       </div>
     `);
   });
+  // Initialize order
+  let order = new Order();
 
+  // Form submit handler
   $("form#pizza").submit(function (event) {
     event.preventDefault();
     // get pizza size input
     let inputSize = $("input:radio[name=size]:checked").val();
-    let pizza = new Pizza(inputSize);
+    let newPizza = new Pizza(inputSize);
     // get pizza toppings input
     $("input:checkbox[name=toppings]:checked").each(function () {
-      pizza.addTopping($(this).val());
+      newPizza.addTopping($(this).val());
     });
-
-    console.log(pizza);
+    // add pizza to order
+    order.addItem(newPizza);
+    // display order and cost
+    console.log(htmlForPizza(newPizza));
+    $("#order-items").append(htmlForPizza(newPizza));
+    $("#cost").text(order.cost());
+    console.log(order);
   });
 });
+
+function htmlForPizza (pizza) {
+  let htmlString = `
+    <div class="order-item row">
+      <div class="col-sm-8">
+        <p class="item-description">${pizza.size} Pizza</p>
+        <p class="toppings">Toppings: ${pizza.toppingsList()}</p>
+      </div>
+      <div class="col-sm-2">
+        <p class="item-cost">$${pizza.cost()}</p>
+      </div>
+    </div>
+  `
+  return htmlString;
+}
