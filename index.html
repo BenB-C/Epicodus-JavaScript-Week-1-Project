@@ -9,7 +9,17 @@
   <title>Order Pizza</title>
 </head>
 <body>
-  <h1>Pizza Builder</h1>
+  <div class="header row">
+    <div class="col-md-4">
+      <img class="header-img" src="img/pizza.jpg" alt="image of a pizza">
+    </div>
+    <div class="col-md-4">
+      <h1>Pizza Builder</h1>
+    </div>
+    <div class="col-md-4">
+      <img class="header-img" src="img/pizza.jpg" alt="image of a pizza">
+    </div>
+  </div>
   <button id="add-to-order" type="button" class="btn btn-success">ADD A PIZZA TO YOUR ORDER</button>
   <form id="build-pizza">
     <h3>CHOOSE YOUR SIZE</h3>
@@ -32,7 +42,9 @@
       </label>
     </div>
     <h3>CHOOSE YOUR TOPPINGS</h3>
-    <div id="toppings" class="form-group">
+    <div>
+      <div id="toppings" class="form-group">
+      </div>
     </div>
     <button type="submit" class="btn btn-success">ADD TO ORDER</button>
   </form>

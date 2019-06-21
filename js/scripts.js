@@ -116,7 +116,7 @@ $(function (){
 function htmlForPizza (pizza) {
   let htmlString = `
     <div class="order-item row">
-      <div class="col-sm-8">
+      <div class="col-sm-10">
         <p class="item-description">${pizza.size} Pizza</p>
         <p class="toppings">Toppings: ${pizza.toppingsList()}</p>
       </div>
