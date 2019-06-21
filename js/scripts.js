@@ -69,16 +69,20 @@ Order.prototype.cost = function () {
 // -- User Interface --
 $(function (){
   // Add topping choices
-  toppings.forEach( topping => {
+  toppings.forEach(topping => {
     $("#toppings").append(`<input type="checkbox" name="toppings" value="${topping}">${topping}<br>`);
   });
 
   $("form#pizza").submit(function (event) {
     event.preventDefault();
-
+    // get pizza size input
     let inputSize = $("input:radio[name=size]:checked").val();
     let pizza = new Pizza(inputSize);
-    console.log(pizza);
+    // get pizza toppings input
+    $("input:checkbox[name=toppings]:checked").each(function () {
+      pizza.addTopping($(this).val());
+    });
 
+    console.log(pizza);
   });
 });
