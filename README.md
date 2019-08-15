@@ -1,6 +1,6 @@
 # Order Pizza
 
-https://benb-c.github.io/order-pizza/
+https://benb-c.github.io/Epicodus-JavaScript-Week-1-Project
 
 #### Epicodus Intermediate JavaScript - Code Review 1 - 2019.06.21
 
